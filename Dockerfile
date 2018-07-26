@@ -1,5 +1,11 @@
-FROM microsoft/dotnet:2.0-runtime
-ARG source
+FROM microsoft/dotnet:2.0-sdk
 WORKDIR /app
-COPY ${source:-obj/Docker/publish} .
-ENTRYPOINT ["dotnet", "ZabbixTrapper.dll"]
+
+# copy csproj and restore as distinct layers
+COPY *.csproj ./
+RUN dotnet restore
+
+# copy and build everything else
+COPY . ./
+RUN dotnet publish -c Release -o out
+ENTRYPOINT ["dotnet", "out/ZabbixTrapper.dll"]
