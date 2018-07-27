@@ -1,11 +1,14 @@
 FROM microsoft/dotnet:2.0-sdk
-WORKDIR /app
+#WORKDIR /app
+
+#COPY ./ZabbixTrapper ./ZabbixTrapper
 
 # copy csproj and restore as distinct layers
-COPY *.csproj ./
-RUN dotnet restore
+#COPY *.csproj ./
+#RUN dotnet restore
 
 # copy and build everything else
 COPY . ./
+RUN dotnet restore
 RUN dotnet publish -c Release -o out
 ENTRYPOINT ["dotnet", "out/ZabbixTrapper.dll"]
