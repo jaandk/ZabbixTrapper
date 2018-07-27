@@ -1,13 +1,16 @@
-FROM microsoft/dotnet:2.0-sdk
-WORKDIR /app
+FROM microsoft/dotnet:2.1-sdk AS builder  
+WORKDIR /sln
 
-#COPY ./ZabbixTrapper ./ZabbixTrapper
-
-# copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY ./ZabbixTrapper/ZabbixTrapper.csproj /.ZabbixTrapper/ZabbixTrapper.csproj
 RUN dotnet restore
 
-# copy and build everything else
-COPY . ./
-RUN dotnet publish -c Release -o out
+COPY ./ZabbixTrapper ./ZabbixTrapper  
+RUN dotnet build -c Release --no-restore
+
+RUN dotnet publish "./ZabbixTrapper/ZabbixTrapper.csproj" -c Release -o "../../dist" --no-restore
+
+FROM microsoft/dotnet:2.1-runtime  
+WORKDIR /app  
+ENV ASPNETCORE_ENVIRONMENT Local  
 ENTRYPOINT ["dotnet", "out/ZabbixTrapper.dll"]
+COPY --from=builder /sln/dist .
