@@ -1,5 +1,6 @@
 FROM microsoft/dotnet:2.1-sdk AS builder  
 WORKDIR /sln
+COPY ./ZabbixTrapper.sln ./
 
 COPY ./ZabbixTrapper/ZabbixTrapper.csproj /.ZabbixTrapper/ZabbixTrapper.csproj
 RUN dotnet restore
