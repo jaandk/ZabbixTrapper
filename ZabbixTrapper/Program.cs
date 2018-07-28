@@ -59,7 +59,7 @@ namespace ZabbixTrapper
 				tmpSetting.MqttserverIp = "1.2.3.4";
 				tmpSetting.ZabbixIp = "5.6.7.8";
 				tmpSetting.MqttProperties = new List<MqttProp>();
-				tmpSetting.MqttProperties.Add(new MqttProp() { MqttTopic = "topic1/topic2/topic3", MqttProperties = new List<string>() { "prop1", "prop2" });
+				tmpSetting.MqttProperties.Add(new MqttProp() { MqttTopic = "topic1/topic2/topic3", MqttProperties = new List<string>() { "prop1", "prop2" }});
 				Directory.CreateDirectory("/config");
 				File.WriteAllText(settingsFile, JsonConvert.SerializeObject(tmpSetting));
 			}
