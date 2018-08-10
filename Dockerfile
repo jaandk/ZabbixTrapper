@@ -9,12 +9,10 @@ FROM microsoft/dotnet:2.1-sdk as builder
 COPY . ./
 #RUN dotnet build -c Release --no-restore
 
-WORKDIR /dist
-
 RUN dotnet publish "./ZabbixTrapper/ZabbixTrapper.csproj" -c Release -o "./dist"
 
 FROM microsoft/dotnet:2.1-runtime  
-WORKDIR /app  
+#WORKDIR /app  
 ENV ASPNETCORE_ENVIRONMENT Local  
 ENTRYPOINT ["dotnet", "out/ZabbixTrapper.dll"]
 COPY --from=builder /dist .
