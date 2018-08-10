@@ -15,4 +15,4 @@ FROM microsoft/dotnet:2.1-runtime
 #WORKDIR /app  
 ENV ASPNETCORE_ENVIRONMENT Local  
 ENTRYPOINT ["dotnet", "out/ZabbixTrapper.dll"]
-COPY --from=builder ./out .
+COPY --from=builder /ZabbixTrapper/out .
