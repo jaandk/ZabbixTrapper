@@ -9,6 +9,8 @@ FROM microsoft/dotnet:2.1-sdk as builder
 COPY . ./
 #RUN dotnet build -c Release --no-restore
 
+WORKDIR /dist
+
 RUN dotnet publish "./ZabbixTrapper/ZabbixTrapper.csproj" -c Release -o "./dist"
 
 FROM microsoft/dotnet:2.1-runtime  
