@@ -11,8 +11,8 @@ COPY . ./
 
 RUN dotnet publish "./ZabbixTrapper/ZabbixTrapper.csproj" -c Release -o "./out"
 
-FROM microsoft/dotnet:2.1-sdk  
+FROM microsoft/dotnet:2.1-runtime
 #WORKDIR /app  
 ENV ASPNETCORE_ENVIRONMENT Local  
-ENTRYPOINT ["dotnet", "/ZabbixTrapper/out/ZabbixTrapper.dll"]
+ENTRYPOINT ["dotnet", "/ZabbixTrapper/out/zabbixtrapper.dll"]
 COPY --from=builder /ZabbixTrapper/out .
